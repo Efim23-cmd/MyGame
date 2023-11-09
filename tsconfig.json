@@ -4,6 +4,7 @@
     "outDir": "./wwwroot/js",
     "lib": [ "ES6", "DOM", "ES2021.String" ],
     "module": "es6",
-    "target": "es6"
+    "target": "es6",
+    "sourceMap": true
   }
 }
