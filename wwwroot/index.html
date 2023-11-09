@@ -4,17 +4,108 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta charset="utf-8">
     <meta name="author" content="ReZEN">
-    <link rel="icon" href="favicon.ico" />
-    <link href="Main.css"  rel="style" type="text/css"/>
-    <link href="css/Game.css" rel="style" type="text/css" />
     <title>My Game</title>
+    <link rel="icon" href="favicon.ico" />
+    <link href="/css/Main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/Game.css" rel="style" />
 </head>
-    <body>
-        <div id="loadPage">
-            <div></div>
+<body>
+    <div id="loadPage">
+        <div class="happy"></div>
+    </div>
+
+    <div id="enterMenu" class="menu">
+        <div id="enter_register" class="active">
+            <lable>Enter name:</lable>
+            <input id="enter_input_name" class="active" type="text" maxlength="10" />
         </div>
-        <script rel="preload" as="script" type="module" src="js/Main.js"></script>
-        <script rel="preload" as="script" type="module" src="js/Interactive.js"></script>
-        <script rel="preload" as="script" type="module" src="js/Game.js"></script>
-    </body>
+        <div id="enter_btn_leader" class="btn">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+        </div>
+        <div id="enter_btn_start" class="btn disabled">Start</div>
+    </div>
+
+    <div id="mainMenu" class="menu">
+        <div id="main_achievements">
+            <div id="main_achievements_user"></div>
+            <div id="main_achievements_record"></div>
+        </div>
+        <div id="main_btn_leader" class="btn">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+        </div>
+        <div id="main_btn_start" class="btn">Start</div>
+    </div>
+
+    <div id="replayMenu" class="menu">
+        <div id="replay_result">
+            <div id="replay_result_win"></div>
+            <div id="replay_result_time"></div>
+            <div id="replay_result_score"></div>
+        </div>
+        <div id="replay_btn_back" class="btn">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </div>
+        <div id="replay_btn_replay" class="btn">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div id="playMenu" class="menu">
+        <div id="play_result">
+            <div id="play_result_time"></div>
+            <div id="play_result_score"></div>
+        </div>
+        <div id="play_btn_back" class="btn">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </div>
+        <div id="play_btn_continue" class="btn">Continue</div>
+    </div>
+
+    <div id="leaderMenu" class="menu">
+        <div id="leader_searchBlock">
+            <label for="leader_input_search">
+                <i class="fa fa-search" style="transform: translate(0px, 2px);" aria-hidden="true"></i>
+            </label>
+            <input id="leader_input_search" type="text" placeholder="Type to search" maxlength="10" 0 />
+        </div>
+        <div id="leader_loadBlockSearch" class="loadBlock">
+            <span class="loader"></span>
+        </div>
+        <div id="leader_listUser">
+        </div>
+        <div id="leader_btn_back" class="btn">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div id="blockMessage"></div>
+
+    <div id="scene" class="stop">
+        <div id="ceil">
+            <div class="fruit1"></div>
+            <div class="fruit2"></div>
+            <div class="fruit3"></div>
+            <div class="fruit4"></div>
+            <div class="fruit5"></div>
+            <div class="fruit6"></div>
+            <div class="fruit7"></div>
+            <div class="fruit8"></div>
+            <div class="fruit9"></div>
+            <div class="fruit10"></div>
+        </div>
+        <div id="scene_btn_stop" class="btn">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <div id="scene_timer">00:00</div>
+        <div id="scene_healthBlock">
+            <div class="heart injure"></div>
+            <div class="heart injure"></div>
+            <div class="heart injure"></div>
+        </div>
+        <div id="basket"></div>
+        <div id="floor"></div>
+    </div>
+
+    <script rel="preload" as="script" type="module" src="/js/Main.js"></script>
+</body>
 </html>

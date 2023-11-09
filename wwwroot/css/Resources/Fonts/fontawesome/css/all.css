@@ -2505,7 +2505,7 @@ readers do not read off random characters that represent icons */
 .fa-bomb::before {
   content: "\f1e2"; }
 
-.fa-registered::before {
+.fa-enter_registered::before {
   content: "\f25d"; }
 
 .fa-address-card::before {
@@ -3057,7 +3057,7 @@ readers do not read off random characters that represent icons */
 .fa-map-signs::before {
   content: "\f277"; }
 
-.fa-cash-register::before {
+.fa-cash-enter_register::before {
   content: "\f788"; }
 
 .fa-person-circle-question::before {
@@ -4239,10 +4239,10 @@ readers do not read off random characters that represent icons */
 .fa-khanda::before {
   content: "\f66d"; }
 
-.fa-sliders::before {
+.fa-sleaders::before {
   content: "\f1de"; }
 
-.fa-sliders-h::before {
+.fa-sleaders-h::before {
   content: "\f1de"; }
 
 .fa-folder-tree::before {

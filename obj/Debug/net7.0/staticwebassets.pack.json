@@ -1,6 +1,26 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\click.mp3",
+      "PackagePath": "staticwebassets\\css\\Data\\Music\\click.mp3"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\death.mp3",
+      "PackagePath": "staticwebassets\\css\\Data\\Music\\death.mp3"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\fall.mp3",
+      "PackagePath": "staticwebassets\\css\\Data\\Music\\fall.mp3"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\gameover.mp3",
+      "PackagePath": "staticwebassets\\css\\Data\\Music\\gameover.mp3"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\pixel.mp3",
+      "PackagePath": "staticwebassets\\css\\Data\\Music\\pixel.mp3"
+    },
+    {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Game.css",
       "PackagePath": "staticwebassets\\css\\Game.css"
     },
@@ -9,8 +29,12 @@
       "PackagePath": "staticwebassets\\css\\Main.css"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Fonts\\LexendDeca-Regular.ttf",
-      "PackagePath": "staticwebassets\\css\\Resources\\Fonts\\LexendDeca-Regular.ttf"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Menu.css",
+      "PackagePath": "staticwebassets\\css\\Menu.css"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Fonts\\Pixel.ttf",
+      "PackagePath": "staticwebassets\\css\\Resources\\Fonts\\Pixel.ttf"
     },
     {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Fonts\\fa-brands-400.ttf",
@@ -57,8 +81,64 @@
       "PackagePath": "staticwebassets\\css\\Resources\\Images\\angry.png"
     },
     {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\background.jpg",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\background.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\basket.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\basket.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit1.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit1.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit10.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit10.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit2.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit2.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit3.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit3.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit4.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit4.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit5.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit5.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit6.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit6.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit7.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit7.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit8.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit8.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\fruit9.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\fruit9.png"
+    },
+    {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\happy.png",
       "PackagePath": "staticwebassets\\css\\Resources\\Images\\happy.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\heartEmpty.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\heartEmpty.png"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\heartFull.png",
+      "PackagePath": "staticwebassets\\css\\Resources\\Images\\heartFull.png"
     },
     {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Resources\\Images\\sad.png",
@@ -73,16 +153,60 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Events.js",
+      "PackagePath": "staticwebassets\\js\\Events.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Events.js.map",
+      "PackagePath": "staticwebassets\\js\\Events.js.map"
+    },
+    {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Game.js",
       "PackagePath": "staticwebassets\\js\\Game.js"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Interactive.js",
-      "PackagePath": "staticwebassets\\js\\Interactive.js"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Game.js.map",
+      "PackagePath": "staticwebassets\\js\\Game.js.map"
     },
     {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Main.js",
       "PackagePath": "staticwebassets\\js\\Main.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Main.js.map",
+      "PackagePath": "staticwebassets\\js\\Main.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Menu.js",
+      "PackagePath": "staticwebassets\\js\\Menu.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Menu.js.map",
+      "PackagePath": "staticwebassets\\js\\Menu.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Search.js",
+      "PackagePath": "staticwebassets\\js\\Search.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Search.js.map",
+      "PackagePath": "staticwebassets\\js\\Search.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Sound.js",
+      "PackagePath": "staticwebassets\\js\\Sound.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Sound.js.map",
+      "PackagePath": "staticwebassets\\js\\Sound.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\User.js",
+      "PackagePath": "staticwebassets\\js\\User.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\User.js.map",
+      "PackagePath": "staticwebassets\\js\\User.js.map"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.MyGame.Microsoft.AspNetCore.StaticWebAssets.props",
