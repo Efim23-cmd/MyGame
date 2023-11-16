@@ -2,18 +2,19 @@
 import Sound from "./Sound.js";
 import User from "./User.js";
 import { Game } from "./Game.js";
-import { MainMenu, EnterMenu, LeaderMenu, PlayMenu, ReplayMenu } from "./Menu.js";
+import { MainMenu, EnterMenu, LeaderMenu, PlayMenu, ReplayMenu, VisualizerMenu } from "./Menu.js";
 
 
 export default class Program
 {
     /*Common*/
     public static MainUser = new User();
-    public static sound_Click = new Sound("./css/Data/Music/click.mp3");
-    public static sound_Main = new Sound("./css/Data/Music/pixel.mp3", 0.2, true);
-    public static sound_Fall = new Sound("./css/Data/Music/fall.mp3");
-    public static sound_Death = new Sound("./css/Data/Music/death.mp3");
-    public static sound_GameOver = new Sound("./css/Data/Music/gameover.mp3");
+    public static sound_Click = new Sound("./Data/Music/click.mp3", 0.5);
+    public static sound_Main = new Sound("", 0.2, true);
+    public static sound_Coint = new Sound("./Data/Music/fall.mp3", 0.2);
+    public static sound_Death = new Sound("./Data/Music/death.mp3", 0.5);
+    public static sound_Health = new Sound("./Data/Music/health.mp3", 0.3);
+    public static sound_GameOver = new Sound("./Data/Music/gameover.mp3", 0.2);
     public static blockMessage = document.getElementById("blockMessage");
     public static btns = Array.from(document.querySelectorAll(".btn"));
     public static timer = new Game.Timer("#scene_timer")
@@ -21,6 +22,9 @@ export default class Program
 
     /*Main Menu*/
     public static mainMenu = new MainMenu("mainMenu", "main_btn_start", "main_btn_leader", "main_achievements_user", "main_achievements_record");
+
+    /*VisualizerMenu*/
+    public static visualizerMenu = new VisualizerMenu("visualizerMenu", "visualizer_btn_start", "visualizer_music");
 
     /*Enter Menu*/
     public static enterMenu = new EnterMenu("enterMenu", "enter_input_name", "enter_btn_start", "enter_btn_leader");
@@ -44,6 +48,27 @@ export default class Program
         setTimeout(() => {
             Program.blockMessage.removeChild(error);
         }, 3000);
+    }
+
+    public static Random(...values) {
+        let step = 1 / values.length;
+        let varRandom = Math.random();
+        for (let index = 0; index < values.length; index++) {
+            if (index * step <= varRandom && (index + 1) * step > varRandom) {
+                return values[index];
+            }
+        }
+    }
+
+    public static RandomBetween(from: number, to: number) {
+        let varRandom = Math.random();
+        if (from == to) {
+            return from;
+        }
+        else if (from > to) {
+            return to + (from - to) * varRandom;
+        }
+        return from + (to - from) * varRandom;
     }
 
     public static Main(): void

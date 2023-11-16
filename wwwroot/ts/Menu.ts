@@ -2,6 +2,8 @@
 import User from "./User.js";
 
 export class Menu {
+    public static IsActive: boolean = false;
+    public static IsRun: boolean = false;
     protected menu: HTMLElement;
     protected _isOpen: boolean;
 
@@ -15,29 +17,38 @@ export class Menu {
 
     constructor(Idmenu: string) {
         this.menu = document.getElementById(Idmenu);
+        this.SetEvents();
     }
 
     public Open() {
         this.menu.style.transform = "translate(0, 0)";
+        Menu.IsActive = true;
+    }
+
+    private SetEvents() {
+        this.menu.addEventListener("transitionstart", (e) => {
+            if (e.propertyName == "transform") {
+                Menu.IsRun = true;
+            }
+        });
+        this.menu.addEventListener("transitioncancel", (e) => {
+            if (e.propertyName == "transform") {
+                Menu.IsRun = false;
+            }
+        });
+        this.menu.addEventListener("transitionend", (e) => {
+            if (e.propertyName == "transform") {
+                Menu.IsRun = false;
+            }
+        });
     }
 
     public static CloseMenuWithRandomPos(...elements: Menu[]) {
         elements.forEach((element) => {
             element.menu.classList.remove("active");
-            let randomVar = Math.random();
-            if (randomVar >= 0 && randomVar < 0.25) {
-                element.menu.style.transform = "translate(0, 100vh)";
-            }
-            else if (randomVar >= 0.25 && randomVar < 0.5) {
-                element.menu.style.transform = "translate(0, -100vh)";
-            }
-            else if (randomVar >= 0.5 && randomVar < 0.75) {
-                element.menu.style.transform = " translate(-100vw, 0px)";
-            }
-            else {
-                element.menu.style.transform = "translate(100vw, 0)";
-            }
+            element.menu.style.transform = Program.Random("translate(0, 100vh)", "translate(0, -100vh)", " translate(-100vw, 0px)", "translate(100vw, 0)");
         });
+        Menu.IsActive = false;
     }
 }
 
@@ -70,6 +81,22 @@ export class MainMenu extends Menu {
 
     public AddEventLeader(event: string, func: (e: Event) => void) {
         this.Btn_Leader.addEventListener(event, func);
+    }
+}
+
+export class VisualizerMenu extends Menu {
+
+    private Btn_Start: HTMLElement;
+    public Input: HTMLInputElement;
+
+    public constructor(IdMenu, btn_startId: string, inputId: string) {
+        super(IdMenu);
+        this.Btn_Start = document.getElementById(btn_startId);
+        this.Input = <HTMLInputElement>document.getElementById(inputId);
+    }
+
+    public AddEventStart(event: string, func: (e: Event) => void) {
+        this.Btn_Start.addEventListener(event, func);
     }
 }
 
@@ -128,10 +155,6 @@ export class ReplayMenu extends Menu {
         this.IsWin = document.getElementById(label_winId);
         this.Time = document.getElementById(label_timeId);
         this.Score = document.getElementById(label_scoreId);
-    }
-
-    public UpdateIsWin(value: string) {
-        this.IsWin.innerHTML = `${value}`;
     }
 
     public UpdateTime(value: string) {

@@ -27,9 +27,7 @@ export default class Events {
         }, 3000);
 
         window.addEventListener("load", async () => {
-            Menu.CloseMenuWithRandomPos(Program.mainMenu, Program.leaderMenu, Program.playMenu, Program.replayMenu, Program.replayMenu, Program.enterMenu);
-            Game.Fruit.ClearFruits();
-            Game.Scene.RestoreHp();
+            Menu.CloseMenuWithRandomPos(Program.mainMenu, Program.visualizerMenu, Program.leaderMenu, Program.playMenu, Program.replayMenu, Program.replayMenu, Program.enterMenu);
             if (await Program.MainUser.CheckUser()) {
                 Program.mainMenu.UpdateName(Program.MainUser.userName);
                 Program.mainMenu.UpdateRecord(Program.MainUser.record.toString());
@@ -39,11 +37,9 @@ export default class Events {
             await Search.GetListTopTen();
             Program.leaderMenu.SetEntries(JSON.parse(localStorage.getItem("topTen")));
             Program.player.SetInDefault();
-            setTimeout(() => {
-                clearInterval(idTimer);
-                loadPage?.classList.add("inactive");
-                Program.MainUser.IsNewUser ? Program.enterMenu.Open() : Program.mainMenu.Open();
-            }, 3000);
+            clearInterval(idTimer);
+            loadPage?.classList.add("inactive");
+            Program.MainUser.IsNewUser ? Program.enterMenu.Open() : Program.mainMenu.Open();
         });
 
         window.addEventListener("storage", (event) => {
@@ -53,6 +49,7 @@ export default class Events {
 
         Program.btns.forEach((btn) => {
             btn.addEventListener("click", () => {
+                Sound.ClearAll();
                 Program.sound_Click.Play();
             });
         });
@@ -78,32 +75,36 @@ export default class Events {
 
         Program.enterMenu.AddEventStart("click", async () => {
             User.AbortRequest();
-            Program.MainUser.userName = Program.enterMenu.Input.value;
-            if (await Program.MainUser.SaveUserAtServer()) {
-                Game.Movement.Start();
-                Menu.CloseMenuWithRandomPos(Program.enterMenu);
-                Program.MainUser.IsNewUser = false;
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
+                Program.MainUser.userName = Program.enterMenu.Input.value;
+                if (await Program.MainUser.SaveUserAtServer()) {
+                    Program.visualizerMenu.Open();
+                    Menu.CloseMenuWithRandomPos(Program.enterMenu);
+                    Program.MainUser.IsNewUser = false;
+                }
             }
         });
 
         Program.enterMenu.AddEventLeader("click", async () => {
             User.AbortRequest();
-            Menu.CloseMenuWithRandomPos(Program.enterMenu);
-            Program.leaderMenu.Open();
-            if (!Program.leaderMenu.IsEmpty()) {
-                await Search.GetListOnRequest(Program.leaderMenu.Input.value);
-            }
-            else {
-                Program.leaderMenu.RemoveAllFromList();
-                Program.leaderMenu.SetEntries(JSON.parse(localStorage.getItem("topTen")));
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
+                Menu.CloseMenuWithRandomPos(Program.enterMenu);
+                Program.leaderMenu.Open();
+                if (!Program.leaderMenu.IsEmpty()) {
+                    await Search.GetListOnRequest(Program.leaderMenu.Input.value);
+                }
+                else {
+                    Program.leaderMenu.RemoveAllFromList();
+                    Program.leaderMenu.SetEntries(JSON.parse(localStorage.getItem("topTen")));
+                }
             }
         });
 
         /*Main Menu*/
         Program.mainMenu.AddEventStart("click", async () => {
             if (!Program.MainUser.IsNewUser) {
-                if (!Game.Movement.IsRun) {
-                    Game.Movement.Start();
+                if (!Game.Movement.IsRun && !Menu.IsRun) {
+                    Program.visualizerMenu.Open();
                     Menu.CloseMenuWithRandomPos(Program.mainMenu);
                 }
             }
@@ -113,26 +114,43 @@ export default class Events {
         });
 
         Program.mainMenu.AddEventLeader("click", async () => {
-            Menu.CloseMenuWithRandomPos(Program.mainMenu);
-            Program.leaderMenu.Open();
-            if (!Program.leaderMenu.IsEmpty()) {
-                await Search.GetListOnRequest(Program.leaderMenu.Input.value);
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
+                Menu.CloseMenuWithRandomPos(Program.mainMenu);
+                Program.leaderMenu.Open();
+                if (!Program.leaderMenu.IsEmpty()) {
+                    await Search.GetListOnRequest(Program.leaderMenu.Input.value);
+                }
+                else {
+                    Program.leaderMenu.RemoveAllFromList();
+                    Program.leaderMenu.SetEntries(JSON.parse(localStorage.getItem("topTen")));
+                }
+            }
+        });
+
+        /*Visualizer Menu*/
+        Program.visualizerMenu.AddEventStart("click", async () => {
+            if (!Program.MainUser.IsNewUser) {
+                if (!Game.Movement.IsRun && !Menu.IsRun) {
+                    Game.Movement.Start();
+                    Menu.CloseMenuWithRandomPos(Program.visualizerMenu);
+                }
             }
             else {
-                Program.leaderMenu.RemoveAllFromList();
-                Program.leaderMenu.SetEntries(JSON.parse(localStorage.getItem("topTen")));
+                Program.Message("Is he the smartest?");
             }
         });
 
         /*Leader Menu*/
         Program.leaderMenu.AddEventBack("click", () => {
             Search.AbortRequest();
-            Menu.CloseMenuWithRandomPos(Program.leaderMenu);
-            if (Program.MainUser.IsNewUser) {
-                Program.enterMenu.Open();
-            }
-            else {
-                Program.mainMenu.Open();
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
+                Menu.CloseMenuWithRandomPos(Program.leaderMenu);
+                if (Program.MainUser.IsNewUser) {
+                    Program.enterMenu.Open();
+                }
+                else {
+                    Program.mainMenu.Open();
+                }
             }
         });
 
@@ -163,7 +181,7 @@ export default class Events {
         /*Play Menu*/
         Program.playMenu.AddEventContinue("click", () => {
             if (!Program.MainUser.IsNewUser) {
-                if (!Game.Movement.IsRun) {
+                if (!Game.Movement.IsRun && !Menu.IsRun) {
                     Game.Movement.Continue();
                     Menu.CloseMenuWithRandomPos(Program.playMenu);
                     Game.Scene.Open();
@@ -175,7 +193,7 @@ export default class Events {
         });
 
         Program.playMenu.AddEventBack("click", () => {
-            if (!Game.Movement.IsRun) {
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
                 Game.Movement.Clear();
                 Menu.CloseMenuWithRandomPos(Program.playMenu);
                 Program.mainMenu.Open();
@@ -185,7 +203,7 @@ export default class Events {
         /*Replay Menu*/
         Program.replayMenu.AddEventReplay("click", () => {
             if (!Program.MainUser.IsNewUser) {
-                if (!Game.Movement.IsRun) {
+                if (!Game.Movement.IsRun && !Menu.IsRun) {
                     Game.Movement.Start();
                     Menu.CloseMenuWithRandomPos(Program.replayMenu);
                 }
@@ -196,7 +214,7 @@ export default class Events {
         });
 
         Program.replayMenu.AddEventBack("click", () => {
-            if (!Game.Movement.IsRun) {
+            if (!Game.Movement.IsRun && !Menu.IsRun) {
                 Game.Movement.Clear();
                 Menu.CloseMenuWithRandomPos(Program.replayMenu);
                 Program.mainMenu.Open();
@@ -206,15 +224,13 @@ export default class Events {
         /*Scene*/
         window.addEventListener("keydown", (e) => {
             if (e.keyCode == 27) {
-                if (Game.Movement.IsRun) {
+                if (!Menu.IsActive && Game.Movement.IsRun && !Menu.IsRun) {
                     Game.Movement.Stop();
                     Program.playMenu.UpdateScore(Program.player.Score.toString());
                     Program.playMenu.UpdateTime(Program.player.Time);
                     Program.playMenu.Open();
-                }
-                else {
-                    Game.Movement.Continue();
-                    Menu.CloseMenuWithRandomPos(Program.playMenu);
+                    Sound.ClearAll();
+                    Program.sound_Click.Play();
                 }
             }
         });
@@ -252,20 +268,27 @@ export default class Events {
             }
         });
 
-        window.addEventListener("resize", () => {
-            Program.player.SetInOrder()
+        Program.player.element.addEventListener("touchstart", (event) => {
+            startPosX = event.touches[0].pageX - Program.player.element.offsetLeft;
+            IsFlag = true;
         });
 
-        window.addEventListener("keydown", (e) => {
-            if (Game.Movement.IsRun) {
-                if (e.key == "ArrowRight") {
-                    Program.player.element.style.left = `${Program.player.element.offsetLeft + Program.player.step}px`
-                }
-                else if (e.key == "ArrowLeft") {
-                    Program.player.element.style.left = `${Program.player.element.offsetLeft - Program.player.step}px`
-                }
-                Program.player.SetInOtherSide()
+        window.addEventListener("touchmove", (event) => {
+            if (IsFlag) {
+                Program.player.element.style.left = `${event.touches[0].pageX - startPosX}px`;
             }
+        });
+
+        window.addEventListener("touchend", () => {
+            if (IsFlag) {
+                Program.player.SetInOrder()
+                IsFlag = false;
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            Game.Scene.UpdateFloorScale();
+            Program.player.SetInOrder();
         });
     }
 }

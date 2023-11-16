@@ -1,24 +1,28 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\click.mp3",
-      "PackagePath": "staticwebassets\\css\\Data\\Music\\click.mp3"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\click.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\click.mp3"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\death.mp3",
-      "PackagePath": "staticwebassets\\css\\Data\\Music\\death.mp3"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\death.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\death.mp3"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\fall.mp3",
-      "PackagePath": "staticwebassets\\css\\Data\\Music\\fall.mp3"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\fall.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\fall.mp3"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\gameover.mp3",
-      "PackagePath": "staticwebassets\\css\\Data\\Music\\gameover.mp3"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\gameover.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\gameover.mp3"
     },
     {
-      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Data\\Music\\pixel.mp3",
-      "PackagePath": "staticwebassets\\css\\Data\\Music\\pixel.mp3"
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\health.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\health.mp3"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\Data\\Music\\pixel.mp3",
+      "PackagePath": "staticwebassets\\Data\\Music\\pixel.mp3"
     },
     {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\css\\Game.css",
@@ -207,6 +211,14 @@
     {
       "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\User.js.map",
       "PackagePath": "staticwebassets\\js\\User.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Visualizer.js",
+      "PackagePath": "staticwebassets\\js\\Visualizer.js"
+    },
+    {
+      "Id": "C:\\Users\\Ефим\\source\\repos\\MyGame\\wwwroot\\js\\Visualizer.js.map",
+      "PackagePath": "staticwebassets\\js\\Visualizer.js.map"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.MyGame.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -1,0 +1,208 @@
+﻿@import 'Resources/Fonts/fontawesome/css/all.css';
+@import url('Menu.css');
+@import url('Game.css');
+
+@font-face {
+    font-family: "Pixel";
+    src: url(Resources/Fonts/Pixel.ttf)
+}
+@font-face {
+    font-family: "Font Awesome 6 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("Resources/Fonts/fa-brands-400.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: block;
+    font-weight: 900;
+    src: url("Resources/Fonts/fa-solid-900.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: block;
+    font-weight: 400;
+    src: url("Resources/Fonts/fa-regular-400.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: block;
+    font-weight: 400;
+    src: url("Resources/Fonts/fa-v4compatibility.ttf") format("truetype");
+}
+
+
+*::selection {
+    background: var(--colorText);
+    color: var(--colorBackground);
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+
+html {
+    height: 100%;
+    width: 100%;
+    --font: "Pixel";
+    --colorText: black;
+    --sub_colorText: white;
+    --colorBackground: white;
+    --sub_colorBackground: black;
+    --colorLink: #17f809;
+    --sub_colorLink: #0ca402;
+    --colorIcon: black;
+    --sub_colorIcon: black;
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font), monospace;
+    font-weight: 500;
+    color: var(--colorText);
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px;
+}
+input, button {
+    font-family: "Pixel";
+}
+input:focus-visible {
+    outline: none;
+}
+.inactive {
+    pointer-events: none;
+    opacity: 0;
+}
+
+#loadPage {
+    z-index: 11;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--colorBackground);
+    transition: opacity 0.3s ease;
+}
+#loadPage > div {
+    user-select: none;
+    width: 15vw;
+    height: 15vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 3s;
+}
+
+#loadPage > div.happy {
+    background-image: url("Resources/Images/happy.png");
+    animation-name: shake;
+}
+#loadPage > div.angry {
+    background-image: url("Resources/Images/angry.png");
+    animation-name: flip;
+}
+#loadPage > div.sad {
+    background-image: url("Resources/Images/sad.png");
+    animation-name: beat;
+}
+@keyframes shake {
+    0% {
+        -webkit-transform: rotate(-15deg);
+        transform: rotate(-15deg);
+    }
+
+    4% {
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg);
+    }
+
+    8%, 24% {
+        -webkit-transform: rotate(-18deg);
+        transform: rotate(-18deg);
+    }
+
+    12%, 28% {
+        -webkit-transform: rotate(18deg);
+        transform: rotate(18deg);
+    }
+
+    16% {
+        -webkit-transform: rotate(-22deg);
+        transform: rotate(-22deg);
+    }
+
+    20% {
+        -webkit-transform: rotate(22deg);
+        transform: rotate(22deg);
+    }
+
+    32% {
+        -webkit-transform: rotate(-12deg);
+        transform: rotate(-12deg);
+    }
+
+    36% {
+        -webkit-transform: rotate(12deg);
+        transform: rotate(12deg);
+    }
+
+    40%, 100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+@keyframes flip {
+    50% {
+        -webkit-transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+        transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+    }
+}
+@keyframes beat {
+    0%, 90% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    45% {
+        -webkit-transform: scale(var(--fa-beat-scale, 1.25));
+    }
+}
+
+#blockMessage {
+    z-index: 10;
+    pointer-events: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-items: center;
+    align-items: flex-end;
+    gap: 10px;
+    overflow: scroll;
+}
+#blockMessage div {
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+}

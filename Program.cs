@@ -20,7 +20,7 @@ internal class Program
         builder.Services.AddDbContext<ApplicationContext>((options) => options.UseSqlServer(connection));
 
         var app = builder.Build();
-
+        app.Environment.EnvironmentName = "Development";
         if (app.Environment.EnvironmentName == "Development")
         {
             app.UseDeveloperExceptionPage();

@@ -3,15 +3,15 @@ import Sound from "./Sound.js";
 export namespace Game {
     export class Movement{
         public static idAnimate;
-        public static counterForTimer = 0;
+        private static counterForUpdate: number = 0;
         public static IsRun: boolean = false;
 
         public static Start() {
+            Movement.Clear();
             Movement.IsRun = true;
             Game.Scene.Open();
             Program.sound_Main.Play();
             Program.timer.Start();
-            Program.player.SetInDefault();
             Movement.Update();
         }
 
@@ -31,52 +31,49 @@ export namespace Game {
             Program.timer.Stop();
         }
 
-        public static async Clear() {
+        public static Clear() {
             Movement.IsRun = false;
-            cancelAnimationFrame(Movement.idAnimate);
-            Program.replayMenu.UpdateTime(Program.timer.Time);
-            Program.replayMenu.UpdateScore(Program.player.Score.toString());
-            Program.MainUser.record = Program.player.Score;
-            Program.mainMenu.UpdateName(Program.MainUser.userName);
-            Program.mainMenu.UpdateRecord(Program.MainUser.record.toString());
-            Program.MainUser.UpdateUserAtServer();
-            Scene.RestoreHp();
-            Program.sound_Main.Clear();
-            Fruit.ClearFruits();
+            Object.ClearObjects();
             Program.timer.Clear();
-            Game.Scene.Close();
-            if (Program.player.Score > 10) {
-                Program.replayMenu.UpdateIsWin("Win");
-            }
-            else {
-                Program.replayMenu.UpdateIsWin("Loose");
-            }
+            Scene.RestoreHp();
             Program.player.SetInDefault();
         }
 
         public static Update() {
+            Scene.UpdateFloorScale();
+            let ratio = 100;
+            
             Movement.idAnimate = requestAnimationFrame(function update() {
-                Movement.counterForTimer++;
-                if (Movement.counterForTimer % 60 === 0) {
-                    new Fruit();
+                Movement.counterForUpdate++;
+                if (Movement.counterForUpdate % ratio == 0) {
+                    Program.Random(
+                        () => new Fruit(),
+                        () => new Fruit(),
+                        () => new Fruit(),
+                        () => new Fruit(),
+                        () => new Fruit(),
+                        () => new Fruit(),
+                        () => new RottenFruit(),
+                        () => new RottenFruit(),
+                        () => new HolyFruit()
+                    )();
                 }
-                for (let fruit of Fruit.ListOfFruits) {
-                    if (fruit.element.offsetTop >= Program.player.element.offsetTop && fruit.element.offsetLeft >= Program.player.element.offsetLeft - 30 && fruit.element.offsetLeft <= Program.player.element.offsetLeft + Program.player.element.offsetWidth) {
-                        Scene.ContainerOfFruit.removeChild(fruit.element);
-                        Program.player.TakeCoint();
-                        Program.sound_Fall.Clear();
-                        Program.sound_Fall.Play();
+                if (Movement.counterForUpdate % 600 == 0) {
+                    ratio -= 5;
+                }
+                Scene.UpdatePlayerScale();
+                for (let object of Object.ListOfObjects) {
+                    Scene.ObjectScale = object.element.getBoundingClientRect();
+                    if (Scene.ObjectScale.top >= Scene.PlayerScale.top && Scene.ObjectScale.left >= Scene.PlayerScale.left && Scene.ObjectScale.right <= Scene.PlayerScale.right) {
+                        object.Take();
+                        object.Remove();
                     }
-                    else if (fruit.element.offsetTop >= Scene.Floor.offsetTop - 50) {
-                        Scene.ContainerOfFruit.removeChild(fruit.element);
-                        Program.player.Injure();
-                        Program.sound_Death.Clear();
-                        Program.sound_Death.Play();
+                    else if (Scene.ObjectScale.bottom >= Scene.FloorScale.top) {
+                        object.Miss();
+                        object.Remove();
                     }
                     else {
-                        fruit.roteteDeg += fruit.speedRotate;
-                        fruit.element.style.rotate = `${fruit.roteteDeg}deg`
-                        fruit.element.style.top = `${fruit.element.offsetTop + fruit.speedFall}px`
+                        object.Update();
                     }
                 }
                 if (Movement.IsRun) {
@@ -87,8 +84,15 @@ export namespace Game {
     }
 
     export class Scene {
-        public static ContainerOfFruit = document.getElementById("ceil");
+        public static ContainerOfObject = document.getElementById("ceil");
+        public static Player = document.getElementById("basket");
+        public static PlayerScale: DOMRect;
+
         public static Floor = document.getElementById("floor");
+        public static FloorScale: DOMRect;
+
+        public static ObjectScale: DOMRect;
+
         public static ListHeart = Array.from(document.getElementsByClassName("heart"));
 
         private static Scene = document.getElementById("scene");
@@ -99,9 +103,23 @@ export namespace Game {
         public static Close() {
             Scene.Scene.classList.add("stop");
         }
-        public static InjureHp(id) {
-            Scene.ListHeart[id].classList.add("injure");
+
+        public static UpdatePlayerScale() {
+            Scene.PlayerScale =  Scene.Player.getBoundingClientRect();
         }
+
+        public static UpdateFloorScale() {
+            Scene.FloorScale = Scene.Floor.getBoundingClientRect();
+        }
+
+        public static CureHp(id) {
+            Scene.ListHeart[--id].classList.remove("injure");
+        }
+
+        public static InjureHp(id) {
+            Scene.ListHeart[--id].classList.add("injure");
+        }
+
         public static RestoreHp() {
             for (let heart of Scene.ListHeart) {
                 heart.classList.remove("injure");
@@ -171,7 +189,6 @@ export namespace Game {
     export class Player {
         public readonly playground: HTMLElement;
         public readonly element: HTMLElement;
-        public readonly step: number = 100;
 
         public _Hp: number = Scene.ListHeart.length;
         public _Score: number = 0;
@@ -186,11 +203,25 @@ export namespace Game {
 
         private set Hp(value) {
             if (value <= 0) {
-                Movement.Clear();
-                Program.sound_GameOver.Play();
-                Program.replayMenu.Open();
+                Player.SetDeath();
             }
-            this._Hp = value;
+            else if (value >= Scene.ListHeart.length) {
+                this._Hp = Scene.ListHeart.length;
+            }
+            else {
+                this._Hp = value;
+            }
+        }
+
+        private static SetDeath() {
+            Movement.Stop();
+            Program.replayMenu.Open();
+            Program.replayMenu.UpdateTime(Program.timer.Time);
+            Program.replayMenu.UpdateScore(Program.player.Score.toString());
+            Program.MainUser.record = Program.player.Score;
+            Program.mainMenu.UpdateRecord(Program.MainUser.record.toString());
+            Game.Scene.Close();
+            Program.sound_GameOver.Play();
         }
 
         public get Score() {
@@ -210,9 +241,14 @@ export namespace Game {
             this.Score++;
         }
 
-        public Injure() {
-            Scene.InjureHp(this.Hp - 1);
-            this.Hp--;
+        public TakeHp() {
+            ++this.Hp;
+            Scene.CureHp(this.Hp);
+        }
+
+        public TakeDamage() {
+            Scene.InjureHp(this.Hp);
+            --this.Hp;
         }
 
         public SetInDefault() {
@@ -229,67 +265,84 @@ export namespace Game {
                 this.element.style.left = `${this.playground.offsetLeft + this.playground.offsetWidth - this.element.offsetWidth}px`;
             }
         }
-
-        public SetInOtherSide() {
-            if (this.element.offsetLeft + (this.element.offsetWidth) < this.playground.offsetLeft) {
-                this.element.style.left = `${this.playground.offsetLeft + this.playground.offsetWidth - this.element.offsetWidth}px`;
-            }
-            else if (this.element.offsetLeft + this.element.offsetWidth - (this.element.offsetWidth) > this.playground.offsetLeft + this.playground.offsetWidth) {
-                this.element.style.left = `${this.playground.offsetLeft}px`;
-            }
-        }
-
     }
 
-    export class Fruit {
+    export abstract class Object {
         public element: HTMLElement;
-        public static ListOfFruits: Set<Fruit> = new Set<Fruit>();
-        public speedFall: number; 
-        public roteteDeg: number = 0;
-        public speedRotate: number; 
+        public static ListOfObjects: Set<Object> = new Set<Object>();
+
+        private Route: number = 0;
+        private speedFall: number = 1; 
+
+        private speedRotate: number = 0; 
+        private rotateDeg: number = 0;
      
-        constructor() {
+        constructor(...values) {
             this.element = document.createElement("div");
-            this.element.classList.add(Fruit.Random('fruit1', 'fruit2', 'fruit3', 'fruit4', 'fruit5', 'fruit6', 'fruit7', 'fruit8', 'fruit9', 'fruit10'));
-            this.element.style.left = `${Fruit.RandomBetween(100, Program.player.playground.offsetLeft + Program.player.playground.offsetWidth - 100)}px`;
-            this.speedFall = Fruit.RandomBetween(5, 10);
-            this.speedRotate = Fruit.RandomBetween(-10, 10);
-            Scene.ContainerOfFruit.insertAdjacentElement("afterbegin", this.element);
-            Fruit.ListOfFruits.add(this);
+            this.element.className = (Program.Random(...values));
+            this.element.style.left = `${Program.RandomBetween(1, 95)}%`;
+            this.speedRotate = Program.RandomBetween(-10, 10);
+            Scene.ContainerOfObject.insertAdjacentElement("afterbegin", this.element);
+            Object.ListOfObjects.add(this);
         }
 
-        public static UpdatePos() {
-            for (let fruit of Fruit.ListOfFruits) {
-                fruit.roteteDeg += fruit.speedRotate;
-                fruit.element.style.rotate = `${fruit.roteteDeg}deg`
-                fruit.element.style.top = `${fruit.element.offsetTop + fruit.speedFall}px`
-            }
+        public Update() {
+            this.rotateDeg += this.speedRotate;
+            this.element.style.rotate = `${this.rotateDeg}deg`;
+            this.Route += this.speedFall;
+            this.element.style.top = `${this.Route}%`;
         }
 
-        public static ClearFruits() {
-            Scene.ContainerOfFruit.innerHTML = "";
-            Fruit.ListOfFruits.clear();
+        public Remove() {
+            this.element.remove();
         }
 
-        public static Random(...values) {
-            let step = 1 / values.length;
-            let varRandom = Math.random();
-            for (let index = 0; index < values.length; index++) {
-                if (index * step >= varRandom && varRandom < (index + 1) * step) {
-                    return values[index];
-                }
-            }
+        public static ClearObjects() {
+            Scene.ContainerOfObject.innerHTML = "";
+            Object.ListOfObjects.clear();
         }
 
-        public static RandomBetween(from: number, to: number) {
-            let varRandom = Math.random();
-            if (from == to) {
-                return from;
-            }
-            else if (from > to) {
-                return to + (from - to) * varRandom;
-            }
-            return from + (to - from) * varRandom;
+        public abstract Take();
+        public abstract Miss();
+    }
+
+    class Fruit extends Object {
+        constructor() {
+            super('fruit1', 'fruit2', 'fruit3', 'fruit4', 'fruit5', 'fruit6', 'fruit7', 'fruit8', 'fruit9', 'fruit10');
+        }
+        public Take() {
+            Program.player.TakeCoint();
+            Program.sound_Coint.Play();
+        }
+        public Miss() {
+            Program.player.TakeDamage();
+            Program.sound_Death.Play();
+        }
+    }
+
+    class RottenFruit extends Object {
+        constructor() {
+            super('fruit1 rotten', 'fruit2 rotten', 'fruit3 rotten', 'fruit4 rotten', 'fruit5 rotten', 'fruit6 rotten', 'fruit7 rotten', 'fruit8 rotten', 'fruit9 rotten', 'fruit10 rotten');
+        }
+        public Take() {
+            Program.player.TakeDamage();
+            Program.sound_Death.Play();
+        }
+        public Miss() {
+            Program.sound_Death.Play();
+        }
+    }
+
+    class HolyFruit extends Object {
+        constructor() {
+            super('fruit1 holy', 'fruit2 holy', 'fruit3 holy', 'fruit4 holy', 'fruit5 holy', 'fruit6 holy', 'fruit7 holy', 'fruit8 holy', 'fruit9 holy', 'fruit10 holy');
+        }
+        public Take() {
+            Program.player.TakeHp();
+            Program.sound_Health.Play();
+        }
+        public Miss() {
+            Program.sound_Death.Play();
         }
     }
 }

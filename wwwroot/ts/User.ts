@@ -38,6 +38,7 @@ export default class User {
     public set record(Result: number) {
         if (this._record < Result) {
             this._record = Result;
+            this.UpdateUserAtServer();
         }
     }
 

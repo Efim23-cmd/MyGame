@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAmQxlXkviHUivHcGKNaFwlgAAAAACAAAAAAAQZgAAAAEAACAAAABl1GGyWzeabbVDJY5l5orjSObRqGc+Wc0bK5DQPpaG+QAAAAAOgAAAAAIAACAAAABBGqN/OTDpOZ8QAE/Eq2RnbtdKcZqj6ZOn9GOv2uYShiAAAACs/u1r0nLDeHbLWhOSKXlzGeDn6lC0M4CY1OVIRqosfEAAAADxNjSL5qosfS0X8s3OwVyhq6t4MmaBUBsPlteezTCi/RBPO+XdF6bm1JllJv/MCfHNcoVbrGFbikGUx9vOTgqa</EncryptedPassword>
+    <History>True|2023-11-16T15:04:32.9020664Z;True|2023-11-12T15:03:15.0507780+03:00;False|2023-11-12T15:00:14.6003671+03:00;True|2023-11-10T01:35:06.6448439+03:00;True|2023-11-10T01:32:11.6254621+03:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL5110.site4now.net%3bInitial Catalog=db_aa0a29_outline%3bUser Id=db_aa0a29_outline_admin%3bPassword=987567%2a%2aEf%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
